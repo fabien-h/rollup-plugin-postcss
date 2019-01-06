@@ -1,6 +1,6 @@
 {
   "name": "@acta/rollup-plugin-postcss",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A rollup plugin to import transpiled styles files as modules width PostCSS.",
   "main": "dist/index.umd.js",
   "module": "dist/index.es5.js",
