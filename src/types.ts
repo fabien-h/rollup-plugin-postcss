@@ -26,5 +26,10 @@ export interface IImporterOptions {
 
 export interface ITranspiledSASS {
   hash: string;
-  style: string;
+  styles: string;
+  errorName?: string;
+  errorReason?: string;
+  errorFile?: string;
+  errorLine?: string;
+  errorColumn?: string;
 }

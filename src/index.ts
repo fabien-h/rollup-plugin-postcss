@@ -76,14 +76,14 @@ const postcssImporter = (options: IImporterOptions = {}) => {
         const processResult = await processor
           .process((code || '').replace('.__SCOPE', `.${hash}`))
           .then(result => result);
-        let style: string = processResult.css;
+        let styles: string = processResult.css;
 
         /* Optional basic minification ; recommended for production */
         if (options.minified) {
-          style = minifiyer.minify(style).styles;
+          styles = minifiyer.minify(styles).styles;
         }
 
-        const output: string = `export default ({hash: '${hash}', style: \`${style}\`})`;
+        const output: string = `export default ({hash: '${hash}', styles: \`${styles}\`})`;
 
         return {
           code: output,
@@ -99,7 +99,7 @@ Column: ${error.column}`);
         return {
           code: `export default ({
             hash: '',
-            style: '',
+            styles: '',
             errorName: ${error.name},
             errorReason: ${error.reason},
             errorFile: ${id},
