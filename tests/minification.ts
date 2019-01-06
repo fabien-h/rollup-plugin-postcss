@@ -4,19 +4,16 @@
   });
 
   describe('Minification test', () => {
-    test('Minified', () => {
+    test('Minified', async () => {
       expect(
-        postcssImporter.transform(
-          `
-        .foo {
-          color: #fff;
-        }
-      `,
+        await postcssImporter.transform(
+          ` .foo {
+              color: #fff;
+            }`,
           'styles.scss',
         ),
       ).toEqual({
-        code:
-          "export default ({hash: '_b65faaa8', style: `._b65faaa8 .foo{color:#fff}`})",
+        code: "export default ({hash: '_486a9c72', style: `.foo{color:#fff}`})",
       });
     });
   });

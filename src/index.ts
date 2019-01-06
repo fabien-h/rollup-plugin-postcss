@@ -19,6 +19,9 @@ const postcssImporter = (options: IImporterOptions = {}) => {
 
   /* Init the processor */
   const plugins: Array<AcceptedPlugin> = [
+    // Imports files
+    // https://github.com/postcss/postcss-import
+    require('postcss-import'),
     // Allow scss like variables use $var: value
     // https://github.com/postcss/postcss-simple-vars
     require('postcss-simple-vars'),
@@ -28,15 +31,25 @@ const postcssImporter = (options: IImporterOptions = {}) => {
     // Reduces calc() to values (when expressions involve the same units).
     // https://github.com/postcss/postcss-calc
     require('postcss-calc'),
+    // Supports variables, using syntax from the W3C Custom Properties
+    // https://github.com/postcss/postcss-custom-properties
+    require('postcss-custom-properties'),
     // Allow <= and => statements to media queries
     // https://github.com/postcss/postcss-media-minmax
     require('postcss-media-minmax'),
     // Lets you use the @extend at-rule and Functional Selectors in CSS.
     // https://github.com/jonathantneal/postcss-extend-rule
     require('postcss-extend-rule')(),
-    // Add vendor prefixes to CSS rules using values from Can I Use.
-    // https://github.com/postcss/autoprefixer
-    require('autoprefixer'),
+    // Convert modern CSS into something most browsers can understand.
+    // https://github.com/csstools/postcss-preset-env
+    require('postcss-preset-env')(
+      // Transpilation target or default values
+      options.presetEnv || {
+        stage: 2,
+        features: [],
+        browsers: 'defaults',
+      },
+    ),
     // The @at-root causes one or more rules to be emitted at the root of the document,
     // rather than being nested beneath their parent selectors
     // https://github.com/OEvgeny/postcss-atroot
@@ -53,14 +66,17 @@ const postcssImporter = (options: IImporterOptions = {}) => {
   /* Return the tranformer */
   return {
     name: 'postcss-transformer',
-    transform: (code: string, id: string) => {
+    async transform(code: string, id: string) {
       if (!filter(id)) {
         return null;
       }
 
       try {
         const hash: string = `_${XXH.h32(code, 0xabcd).toString(16)}`;
-        let style: string = processor.process(`.${hash}{${code || ''}}`).css;
+        const processResult = await processor
+          .process((code || '').replace('.__SCOPE', `.${hash}`))
+          .then(result => result);
+        let style: string = processResult.css;
 
         /* Optional basic minification ; recommended for production */
         if (options.minified) {
@@ -73,14 +89,22 @@ const postcssImporter = (options: IImporterOptions = {}) => {
           code: output,
         };
       } catch (error) {
-        console.error('Invalid style file', id);
-        console.error(error);
+        /* Format the error */
+        console.error(`Name: ${error.name}
+Reason: ${error.reason}
+File: ${id}
+Line: ${error.line}
+Column: ${error.column}`);
+
         return {
           code: `export default ({
             hash: '',
             style: '',
-            fileError: '${id}',
-            error: '${error}'
+            errorName: ${error.name},
+            errorReason: ${error.reason},
+            errorFile: ${id},
+            errorLine: ${error.line},
+            errorColumn: ${error.column},
           })`,
         };
       }

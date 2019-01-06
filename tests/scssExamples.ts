@@ -4,40 +4,55 @@
   });
 
   describe('SCSS capabilities.', () => {
-    test('Nesting', () => {
+    test('Nesting.', async () => {
       expect(
-        postcssImporter.transform(
-          `
-        .foo {
-          color: #fff;
-
-          > .bar {
-            color: #000;
-          }
-        }
-      `,
+        await postcssImporter.transform(
+          ` .foo {
+              color: #fff;
+              
+              > .bar {
+                color: #000;
+              }
+            }`,
           'styles.scss',
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_49352362', style: `._49352362 .foo{color:#fff}._49352362 .foo>.bar{color:#000}`})",
+          "export default ({hash: '_84150551', style: `.foo{color:#fff}.foo>.bar{color:#000}`})",
       });
     });
 
-    test('Variables', () => {
+    test('Scopped nesting.', async () => {
       expect(
-        postcssImporter.transform(
-          `
-          $fooColor: #fff;
-        .foo {
-          color: $fooColor;
-        }
-      `,
+        await postcssImporter.transform(
+          ` .__SCOPE{
+              .foo {
+                color: #fff;
+                
+                > .bar {
+                  color: #000;
+                }
+              }
+            }`,
           'styles.scss',
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_2cbd8dd1', style: `._2cbd8dd1 .foo{color:#fff}`})",
+          "export default ({hash: '_5fef23d0', style: `._5fef23d0 .foo{color:#fff}._5fef23d0 .foo>.bar{color:#000}`})",
+      });
+    });
+
+    test('Variables', async () => {
+      expect(
+        await postcssImporter.transform(
+          ` $fooColor: #fff;
+            .foo {
+              color: $fooColor;
+            }`,
+          'styles.scss',
+        ),
+      ).toEqual({
+        code: "export default ({hash: '_dbcba6d2', style: `.foo{color:#fff}`})",
       });
     });
   });

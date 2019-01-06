@@ -4,25 +4,23 @@
   });
 
   describe('At root.', () => {
-    test('Body style at document root.', () => {
+    test('Body style at document root.', async () => {
       expect(
-        postcssImporter.transform(
-          `
-        > .foo {
-          color: #fff;
+        await postcssImporter.transform(
+          ` .foo {
+              color: #fff;
 
-          @at-root{
-              body {
-                color: #333;
+              @at-root{
+                body {
+                  color: #333;
+                }
               }
-            }
-        }
-      `,
+            }`,
           'styles.scss',
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_6a78110c', style: `body{color:#333}._6a78110c>.foo{color:#fff}`})",
+          "export default ({hash: '_540673cd', style: `body{color:#333}.foo{color:#fff}`})",
       });
     });
   });
