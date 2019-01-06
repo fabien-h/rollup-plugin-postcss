@@ -38,9 +38,9 @@
     "@types/node": "^10.12.18",
     "concurrently": "^4.1.0",
     "jest": "^23.6.0",
-    "release-it": "^9.4.4",
+    "release-it": "^9.5.1",
     "rimraf": "^2.6.3",
-    "rollup": "^1.0.1",
+    "rollup": "^1.0.2",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
@@ -73,5 +73,8 @@
     "postcss-simple-vars": "^5.0.1",
     "rollup-pluginutils": "^2.3.3",
     "xxhashjs": "^0.2.2"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
