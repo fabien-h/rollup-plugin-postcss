@@ -1,4 +1,4 @@
-import { ICreateFilter } from 'types';
+import { ICreateFilter } from './types';
 
 const typeErrorMessage =
   'Includes and exclude parametters for "rollup-plugin-postcss-importer" must be strings or arrays of strings.';
