@@ -15,7 +15,7 @@
       ).toEqual({
         code: `export default ({
             hash: '',
-            style: '',
+            styles: '',
             errorName: CssSyntaxError,
             errorReason: Unknown word,
             errorFile: styles.scss,

@@ -20,7 +20,7 @@
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_540673cd', style: `body{color:#333}.foo{color:#fff}`})",
+          "export default ({hash: '_540673cd', styles: `body{color:#333}.foo{color:#fff}`})",
       });
     });
   });

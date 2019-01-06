@@ -18,7 +18,7 @@
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_84150551', style: `.foo{color:#fff}.foo>.bar{color:#000}`})",
+          "export default ({hash: '_84150551', styles: `.foo{color:#fff}.foo>.bar{color:#000}`})",
       });
     });
 
@@ -38,7 +38,7 @@
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_5fef23d0', style: `._5fef23d0 .foo{color:#fff}._5fef23d0 .foo>.bar{color:#000}`})",
+          "export default ({hash: '_5fef23d0', styles: `._5fef23d0 .foo{color:#fff}._5fef23d0 .foo>.bar{color:#000}`})",
       });
     });
 
@@ -52,7 +52,8 @@
           'styles.scss',
         ),
       ).toEqual({
-        code: "export default ({hash: '_dbcba6d2', style: `.foo{color:#fff}`})",
+        code:
+          "export default ({hash: '_dbcba6d2', styles: `.foo{color:#fff}`})",
       });
     });
   });

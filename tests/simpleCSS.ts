@@ -7,7 +7,7 @@
         await postcssImporter.transform(`.foo { color: #fff; }`, 'styles.scss'),
       ).toEqual({
         code:
-          "export default ({hash: '_5a68bd9c', style: `.foo { color: #fff; }`})",
+          "export default ({hash: '_5a68bd9c', styles: `.foo { color: #fff; }`})",
       });
     });
 
@@ -19,7 +19,7 @@
         ),
       ).toEqual({
         code:
-          "export default ({hash: '_9eba5c56', style: `._9eba5c56 .foo { color: #fff; }`})",
+          "export default ({hash: '_9eba5c56', styles: `._9eba5c56 .foo { color: #fff; }`})",
       });
     });
   });

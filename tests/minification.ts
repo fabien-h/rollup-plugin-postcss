@@ -13,7 +13,8 @@
           'styles.scss',
         ),
       ).toEqual({
-        code: "export default ({hash: '_486a9c72', style: `.foo{color:#fff}`})",
+        code:
+          "export default ({hash: '_486a9c72', styles: `.foo{color:#fff}`})",
       });
     });
   });
