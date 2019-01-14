@@ -74,7 +74,9 @@ const postcssImporter = (options: IImporterOptions = {}) => {
       try {
         const hash: string = `_${XXH.h32(code, 0xabcd).toString(16)}`;
         const processResult = await processor
-          .process((code || '').replace('.__SCOPE', `.${hash}`))
+          .process((code || '').replace('.__SCOPE', `.${hash}`), {
+            from: undefined,
+          })
           .then(result => result);
         let styles: string = processResult.css;
 
