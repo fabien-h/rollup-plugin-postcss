@@ -3,6 +3,8 @@
 
 # Rollup PostCSS @acta/rollup-plugin-postcss
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fabien-h/rollup-plugin-postcss.svg)](https://greenkeeper.io/)
+
 A rollup plugin to import transpiled styles files as modules with PostCSS.
 
 ## Table of Contents
